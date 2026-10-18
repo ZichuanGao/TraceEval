@@ -1,0 +1,94 @@
+# Python bytecode and build outputs
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+wheels/
+*.egg-info/
+
+# Virtual environments and tool caches
+.venv/
+.venv-*/
+venv/
+env/
+ENV/
+.tox/
+.nox/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyre/
+.ipynb_checkpoints/
+
+# Coverage and test outputs
+.coverage*
+coverage.xml
+htmlcov/
+junit.xml
+/test-results/
+
+# Private configuration and credentials
+.env
+.env.*
+!.env.example
+.envrc
+.direnv/
+.ssh/
+/secrets/
+/.credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+credentials.json
+service-account*.json
+
+# Local editor settings and recovery files
+.vscode/
+.idea/
+.history/
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# Runtime data, generated reports, and local database files
+*.log
+*.pid
+*.sqlite3
+*.sqlite3-*
+*.db
+*.dump
+/logs/
+/runtime/
+/artifacts/
+/outputs/
+/exports/
+/uploads/
+/downloads/
+/data/
+/local-data/
+/backups/
+/reports/
+/tmp/
+/temp/
+
+# Frontend dependencies and build caches
+node_modules/
+.next/
+.nuxt/
+.vite/
+
+# Operating-system metadata
+.DS_Store
+._*
+.AppleDouble/
+Thumbs.db
+Desktop.ini
+
+# Keep uv.lock, database migrations, examples, and .env.example versioned.
