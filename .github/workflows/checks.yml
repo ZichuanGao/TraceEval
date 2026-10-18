@@ -1,0 +1,48 @@
+name: Code standards and offline tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: traceeval
+          POSTGRES_USER: traceeval
+          POSTGRES_PASSWORD: traceeval-ci-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U traceeval -d traceeval"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DJANGO_SECRET_KEY: traceeval-ci-only-not-a-production-secret-key-value
+      TRACEEVAL_API_TOKEN: traceeval-ci-only-api-token
+      PGDATABASE: traceeval
+      PGUSER: traceeval
+      PGPASSWORD: traceeval-ci-only
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      DEEPSEEK_API_KEY: ""
+      DEEPSEEK_TRACKING_ID: ""
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.13.1"
+      - name: Install pinned Python
+        run: uv python install
+      - name: Install locked dependencies
+        run: uv sync --locked --dev
+      - name: Run standards and offline regression checks
+        run: uv run --locked python scripts/check.py

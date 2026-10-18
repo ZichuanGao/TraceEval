@@ -1,0 +1,46 @@
+[project]
+name = "traceeval"
+version = "0.1.0"
+description = "Agent trajectory evaluation and evidence analysis"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "django>=5.2,<5.3",
+    "djangorestframework>=3.16,<4",
+    "psycopg[binary]>=3.2,<4",
+    "pydantic>=2.12,<3",
+    "python-dotenv>=1.1,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-django>=4.11,<5", "ruff>=0.12,<1"]
+
+[project.scripts]
+traceeval = "traceeval:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "traceeval.test_settings"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "D"]
+# Complex interfaces document arguments; simple overrides and tests may use one line.
+ignore = ["D417"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[[tool.uv.index]]
+name = "tencent"
+url = "https://mirrors.cloud.tencent.com/pypi/simple/"
+default = true
